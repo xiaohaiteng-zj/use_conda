@@ -6,20 +6,20 @@ import time
 import random
 
 import numpy as np
+import pandas as pd
 
-a = []
-for i in range(100000000):
-    a.append(random.random())
 
-print("----------")
+score = np.random.randint(40, 100, (10, 5))
+cols = ["语文", "数学", "英语", "化学", "物理"]
+df = pd.DataFrame(score, columns=cols)
+print(df)
 
-strat = time.time()
-sum1 = sum(a)
-end = time.time()
-print("计算时间", end - strat)
+df[df["语文"] < 60] = np.nan
 
-b = np.array(a)
-strat = time.time()
-sum2 = np.sum(b)
-end = time.time()
-print("计算时间", end - strat)
+print(df)
+
+a = np.any(pd.isnull(df))
+print(a)
+
+df.fillna(99, inplace=True)
+print(df)
